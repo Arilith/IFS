@@ -27,4 +27,24 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin-left:20%;
+}
+
+.sidebar {
+  width: 20%;
+  position: fixed;
+  background: rgba(0,0,0, 0.7);
+  height: 100vh;
+  left:0;
+  color:white;
+}
+
+.ingredientlist {
+  margin:5%;
+  height: 100%;
+}
+
+.removebutton {
+  background: red;
+  border: none;
 }

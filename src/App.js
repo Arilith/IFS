@@ -9,9 +9,9 @@ const App = () => {
 
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("chicken");
-
-
+  const [query, setQuery] = useState("");
+  const [selectedIngredients, setSelectedIngredients] = useState();
+  const JumboApi = require('jumbo-api');
   useEffect(() => {
      getRecipes();
   }, [query]); 
@@ -33,12 +33,38 @@ const App = () => {
     setSearch("");
   }
 
+  // const addSelectedIngredients = e => {
+  //   setSelectedIngredients(selectedIngredients + e.value)
+  // };
+
+  JumboApi.getProduct('67649PAK') //getting product information for milk
+  .then((products) => {
+     console.log(products);
+  })
+  .catch((err) => {
+     console.log(err);
+  })
+
   return(
     <div className="App">
-      <form className="search-form" onSubmit={getSearch}>
-        <input className="search-bar" type="text" value={search} onChange={updateSearch} />
-        <button className="search-button" type="submit">Search</button>
-      </form>
+      <div className="sidebar">
+        <form className="search-form" onSubmit={getSearch}>
+          <input className="search-bar" type="text" value={search} onChange={updateSearch} />
+          <button className="search-button" type="submit">Search</button>
+        </form>
+        <div className="ingredientlist">
+          Mijn koelkast:
+          <ul>
+            <li><a className="" onClick={() => setQuery("Milk")} href="#">Milk</a><button className="removebutton">X</button><input className="checkbox" type="checkbox"></input></li>
+            <li><a onClick={() => setQuery("Beef")} href="#">Beef</a><button className="removebutton">X</button><input className="checkbox" type="checkbox"></input></li>
+            <li><a onClick={() => setQuery("Carrots")} href="#">Carrots</a><button className="removebutton">X</button><input className="checkbox" type="checkbox"></input></li>
+            <li><a onClick={() => setQuery("Tomatoes")} href="#">Tomatoes</a><button className="removebutton">X</button><input className="checkbox" type="checkbox"></input></li>
+            <li><a onClick={() => setQuery("Peas")} href="#">Peas</a><button className="removebutton">X</button><input className="checkbox" type="checkbox"></input></li>
+
+          </ul>
+        </div>
+      </div>
+      
       <div className="recipes">
         {recipes.map(recipe => (
           <Recipe 
