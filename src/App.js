@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Recipe from "./Recipe";
+import Item from "./Item";
 import './App.css';
 
 const App = () => {
@@ -11,7 +12,10 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState();
-  const JumboApi = require('jumbo-api');
+
+  const itemsInFridge = ["Milk", "Beef", "Carrots", "Tomatoes", "Peas"];
+  // const JumboApi = require('jumbo-api');
+
   useEffect(() => {
      getRecipes();
   }, [query]); 
@@ -27,24 +31,19 @@ const App = () => {
     setSearch(e.target.value);
   };
 
+
   const getSearch = e => {
     e.preventDefault();
     setQuery(search);
-    setSearch("");
   }
 
-  // const addSelectedIngredients = e => {
-  //   setSelectedIngredients(selectedIngredients + e.value)
-  // };
+ function updateRecipes(e) {
+   setQuery(e);
+   getRecipes();
+   setSearch("");
+ }
 
-  // JumboApi.getProduct('67649PAK') //getting product information for milk
-  // .then((products) => {
-  //    console.log(products);
-  // })
-  // .catch((err) => {
-  //    console.log(err);
-  // })
-
+  
   function toggleNav() {
     if(document.getElementById("mySidenav").style.width == "100%") {
       document.getElementById("mySidenav").style.width = "0";
@@ -66,17 +65,15 @@ const App = () => {
       <div id="mySidenav" className="sidenav">
         <div className="sideBarTitle">My Refrigerator</div>
         <a className="closebtn" onClick={() => toggleNav()}>&times;</a>
-        <form className="search-form" onSubmit={getSearch}>
+        <form id="searchForm" className="search-form" onSubmit={getSearch}>
           <input className="search-bar" type="text" value={search} onChange={updateSearch} />
           <button className="search-button" type="submit">Search</button>
         </form>
         
           <ul>
-            <li><input className="checkbox" type="checkbox"></input><a className="ingredientItem" onClick={() => setQuery("Milk")} href="#">Milk</a><button className="removebutton">X</button></li>
-            <li><input className="checkbox" type="checkbox"></input><a className="ingredientItem" onClick={() => setQuery("Beef")} href="#">Beef</a><button className="removebutton">X</button></li>
-            <li><input className="checkbox" type="checkbox"></input><a className="ingredientItem" onClick={() => setQuery("Carrots")} href="#">Carrots</a><button className="removebutton">X</button></li>
-            <li><input className="checkbox" type="checkbox"></input><a className="ingredientItem" onClick={() => setQuery("Tomatoes")} href="#">Tomatoes</a><button className="removebutton">X</button></li>
-            <li><input className="checkbox" type="checkbox"></input><a className="ingredientItem" onClick={() => setQuery("Peas")} href="#">Peas</a><button className="removebutton">X</button></li>
+            {itemsInFridge.map(item => (
+              <Item updateSearch2={updateRecipes} title={item}></Item>
+            ))}
           </ul>
       </div>   
       <div className="recipes">
