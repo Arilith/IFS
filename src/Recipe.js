@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './recipe.module.css';
 
-const Recipe = ({title, calories, image, ingredients, healthlabels}) => {
+const Recipe = ({title, calories, image, ingredients, healthlabels, key}) => {
 
 
 

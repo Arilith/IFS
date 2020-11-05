@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Recipe from "./Recipe";
-import Item from "./Item";
 import './App.css';
 
 const App = () => {
@@ -11,9 +10,28 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
-  const [selectedIngredients, setSelectedIngredients] = useState();
 
-  const itemsInFridge = ["Milk", "Beef", "Carrots", "Tomatoes", "Peas"];
+  const [itemsInFridge, setItemsInFridge] = useState([]);
+
+  useEffect(() => {
+    let itemsInFridge = [
+      { id: 1, name: "Milk" },
+      { id: 2, name: "Peas" },
+      { id: 3, name: "Beef" },
+    ];
+
+    setItemsInFridge(
+      itemsInFridge.map(data => {
+        return {
+          select: false,
+          id: data.id,
+          name: data.name
+        };
+      })
+    );
+  }, []);
+
+
   // const JumboApi = require('jumbo-api');
 
   useEffect(() => {
@@ -24,7 +42,6 @@ const App = () => {
     const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
     const data = await response.json();
     setRecipes(data.hits);
-    console.log(data.hits);
   }
 
   const updateSearch = e => {
@@ -69,17 +86,59 @@ const App = () => {
           <input className="search-bar" type="text" value={search} onChange={updateSearch} />
           <button className="search-button" type="submit">Search</button>
         </form>
-        
-          <ul>
-            {itemsInFridge.map(item => (
-              <Item updateSearch2={updateRecipes} title={item}></Item>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">
+                Select
+              </th>
+              <th>Product</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {itemsInFridge.map((data, i) => (
+            <tr key={data.id}>
+              <th scope="row">
+                <input onChange={event => {
+                  let checked = event.target.checked;
+                  setItemsInFridge(
+                    itemsInFridge.map(d => {
+                      if(d.id === data.id) {
+                        d.select = checked;
+                      }
+                      return d;
+                    })
+                  );
+                  console.log(itemsInFridge);
+                }} type="checkbox" check={data.checked}></input>
+              </th>
+              <td>
+                <a className="ingredientItem" onClick={e => updateRecipes(data.name)} href="#">{data.name}</a>
+              </td>
+              <td>
+                <button className="removebutton">X</button>
+              </td>
+            </tr> 
             ))}
-          </ul>
+          </tbody>
+        </table>
+        <button 
+            class="sendButton" 
+            onClick={event => {
+              let selectedItems = "";
+              itemsInFridge.map(data => {
+                if(data.select === true) {
+                  selectedItems += data.name + ", ";
+                }
+              })
+              updateRecipes(selectedItems);
+            }}
+          >Search</button>
       </div>   
       <div className="recipes">
         {recipes.map(recipe => (
           <Recipe 
-            key = {recipe.recipe.label} 
             title = {recipe.recipe.label} 
             calories = {recipe.recipe.calories} 
             image = {recipe.recipe.image}
