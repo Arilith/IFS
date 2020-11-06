@@ -127,3 +127,34 @@ ul {
   .sidenav a {font-size: 18px;}
 }
 
+.animated {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background-color: rgba(0, 174, 255, 1);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px;
+  background-image: url("images/ifs.png");
+  animation-delay: 1s;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 2s; animation-duration: 2s;
+  -webkit-animation-fill-mode: both; animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {opacity: 1;}
+  99% { opacity: 0.1; height: initial;}
+  100% {opacity: 0.1; display: none; height: 0;}
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  99% { opacity: 0.1; height: initial;}
+  100% {opacity: 0.1; display: none; height: 0;}
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}

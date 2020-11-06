@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Recipe from "./Recipe";
 import './App.css';
-
+import Items from "./components/Items/Items"
 const App = () => {
 
   const APP_ID = '7eeb6043';
@@ -18,6 +18,9 @@ const App = () => {
       { id: 1, name: "Milk" },
       { id: 2, name: "Peas" },
       { id: 3, name: "Beef" },
+      { id: 4, name: "Salt" },
+      { id: 5, name: "Pepper" },
+      { id: 6, name: "Butter" },
     ];
 
     setItemsInFridge(
@@ -60,9 +63,25 @@ const App = () => {
    setSearch("");
  }
 
+ function removeItem(par) {
+  setItemsInFridge(
+    itemsInFridge.map(data => {
+      if(data) {
+        if(par !== data.name) {
+          console.log(data.name);
+          return {
+            select: data.select,
+            id: data.id,
+            name: data.name
+          };
+        }
+      }
+    })
+  );
+ }
   
   function toggleNav() {
-    if(document.getElementById("mySidenav").style.width == "100%") {
+    if(document.getElementById("mySidenav").style.width === "100%") {
       document.getElementById("mySidenav").style.width = "0";
     } else {
       document.getElementById("mySidenav").style.width = "100%";
@@ -73,6 +92,7 @@ const App = () => {
 
   return(
     <div className="App">
+      <div className="animated fadeOut"></div>
       <div className="topnav" id="myTopnav">
         <a>IFS</a>
         <a className="icon" onClick={() => toggleNav()}>
@@ -97,34 +117,11 @@ const App = () => {
             </tr>
           </thead>
           <tbody>
-          {itemsInFridge.map((data, i) => (
-            <tr key={data.id}>
-              <th scope="row">
-                <input onChange={event => {
-                  let checked = event.target.checked;
-                  setItemsInFridge(
-                    itemsInFridge.map(d => {
-                      if(d.id === data.id) {
-                        d.select = checked;
-                      }
-                      return d;
-                    })
-                  );
-                  console.log(itemsInFridge);
-                }} type="checkbox" check={data.checked}></input>
-              </th>
-              <td>
-                <a className="ingredientItem" onClick={e => updateRecipes(data.name)} href="#">{data.name}</a>
-              </td>
-              <td>
-                <button className="removebutton">X</button>
-              </td>
-            </tr> 
-            ))}
+            <Items itemsInFridge={itemsInFridge} setItemsInFridge = {setItemsInFridge} removeItem = {removeItem} updateRecipes = {updateRecipes} />
           </tbody>
         </table>
         <button 
-            class="sendButton" 
+            className="sendButton" 
             onClick={event => {
               let selectedItems = "";
               itemsInFridge.map(data => {
