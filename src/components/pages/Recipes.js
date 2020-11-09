@@ -22,6 +22,7 @@ const Recipes = ({match}) => {
         const data = await response.json();
         setRecipes(data.hits);
         setQuery(match.params.query);
+        console.log(data.hits);
     }
 
     let history = useHistory();
@@ -44,6 +45,7 @@ const Recipes = ({match}) => {
               image = {recipe.recipe.image}
               ingredients = {recipe.recipe.ingredients}
               healthlabels = {recipe.recipe.healthLabels}
+              url = {recipe.recipe.url}
             />
           ))}
         </div>

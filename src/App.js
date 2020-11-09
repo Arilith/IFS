@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Recipe from "./Recipe";
 import Items from "./components/Items/Items";
@@ -26,6 +26,12 @@ const App = () => {
         { id: 4, name: "Salt" },
         { id: 5, name: "Pepper" },
         { id: 6, name: "Butter" },
+        { id: 7, name: "Peanutbutter" },
+        { id: 8, name: "Curry" },
+        { id: 9, name: "Peanuts" },
+        { id: 10, name: "Orange" },
+        { id: 11, name: "Chocolate Milk" },
+        { id: 12, name: "Fries" },
     ];
 
     setItemsInFridge(
@@ -49,6 +55,8 @@ const App = () => {
   //   setRecipes(data.hits);
   // }
 
+  
+
   const updateSearch = e => {
     setSearch(e.target.value);
   };
@@ -59,9 +67,9 @@ const App = () => {
     setQuery(search);
   }
 
-  function updateRecipes(e) {
+  const updateRecipes = e => {
     setQuery(e);
-    //getRecipes();
+    
     setSearch("");
   }
 

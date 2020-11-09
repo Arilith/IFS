@@ -1,10 +1,10 @@
 import React, {useState, useEffect } from 'react';
 import Recipe from "../Recipe";
 import Items from "../components/Items/Items";
-import { Link } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 
 const Nav = (props) => {
-
+    let history = useHistory();
     function toggleNav() {
         if(document.getElementById("mySidenav").style.width === "100%") {
           document.getElementById("mySidenav").style.width = "0";
@@ -48,10 +48,12 @@ const Nav = (props) => {
                     let selectedItems = "";
                     props.itemsInFridge.map(data => {
                         if(data.select === true) {
-                            selectedItems += data.name + ", ";
+                            selectedItems += data.name + ",";
                         }
                     })
-                    props.updateRecipes(selectedItems);
+                    
+                    history.push(`/Recipes/${selectedItems}`);
+
                     }}
                 >Search</button>
             </div>   

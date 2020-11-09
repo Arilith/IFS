@@ -4,14 +4,12 @@ import Recipe from '../../Recipe'
 import { Link } from 'react-router-dom';
 
 const Home = (props) => {
-    const recipes = props.recipes;
+
     return(
-        recipes ? (
             <div className="home">
-                <h1>Home</h1>
+                <h1>Welkom!</h1>
+                <p>Welkom in de app van de Interactive Food Scanner. U gaat de lijst van producten in uw huis kunnen vinden. </p>
             </div>
-        ) : null
-        
     )
 }
 
