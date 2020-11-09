@@ -1,9 +1,14 @@
 import React, {useEffect, useState} from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import Recipe from "./Recipe";
-import './App.css';
 import Items from "./components/Items/Items";
 import Nav from './components/Nav';
 import Home from './components/pages/Home'
+import RecipePage from './components/pages/RecipePage';
+
+import './App.css';
+
 const App = () => {
 
   const APP_ID = '7eeb6043';
@@ -81,11 +86,16 @@ const App = () => {
 
 
   return(
-    <div className="App">
-      <div className="animated fadeOut"></div>
+    <Router>
+      <div className="App">
+      {/* <div className="animated fadeOut"></div> */}
       <Nav getSearch = {getSearch} search = {search} updateSearch = {updateSearch} itemsInFridge = {itemsInFridge} setItemsInFridge = {setItemsInFridge} removeItem = {removeItem} updateRecipes = {updateRecipes} itemsInFridge = {itemsInFridge} updateRecipes = {updateRecipes} />
-      <Home recipes = { recipes } />
+      <Switch>
+        <Route path="/" exact render ={(props) => ( <Home {...props} recipes = { recipes } />)} />
+        <Route path="/RecipePage" component = { RecipePage } />
+      </Switch>
     </div>
+    </Router>
   );
 }
 
