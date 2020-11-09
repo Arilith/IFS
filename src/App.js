@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Recipe from "./Recipe";
 import Items from "./components/Items/Items";
 import Nav from './components/Nav';
 import Home from './components/pages/Home'
 import RecipePage from './components/pages/RecipePage';
+import Recipes from './components/pages/Recipes';
 
 import './App.css';
 
 const App = () => {
 
-  const APP_ID = '7eeb6043';
-  const APP_KEY = '7b018ae4f245c4318e137ed6a44ff60d';
-
-  const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
 
@@ -41,15 +39,15 @@ const App = () => {
     );
   }, []);
 
-  useEffect(() => {
-    getRecipes();
-  }, [query]); 
+  // useEffect(() => {
+  //   getRecipes();
+  // }, [query]); 
 
-  const getRecipes = async () => {
-    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
-    const data = await response.json();
-    setRecipes(data.hits);
-  }
+  // const getRecipes = async () => {
+  //   const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
+  //   const data = await response.json();
+  //   setRecipes(data.hits);
+  // }
 
   const updateSearch = e => {
     setSearch(e.target.value);
@@ -63,7 +61,7 @@ const App = () => {
 
   function updateRecipes(e) {
     setQuery(e);
-    getRecipes();
+    //getRecipes();
     setSearch("");
   }
 
@@ -91,9 +89,11 @@ const App = () => {
       {/* <div className="animated fadeOut"></div> */}
       <Nav getSearch = {getSearch} search = {search} updateSearch = {updateSearch} itemsInFridge = {itemsInFridge} setItemsInFridge = {setItemsInFridge} removeItem = {removeItem} updateRecipes = {updateRecipes} itemsInFridge = {itemsInFridge} updateRecipes = {updateRecipes} />
       <Switch>
-        <Route path="/" exact render ={(props) => ( <Home {...props} recipes = { recipes } />)} />
-        <Route path="/RecipePage" component = { RecipePage } />
+        <Route path="/" exact render ={(props) => ( <Home {...props} />)} />
+        <Route path="/RecipePage/:id" component = { RecipePage } />
+        <Route path="/Recipes/:query" component = { Recipes } />
       </Switch>
+      
     </div>
     </Router>
   );

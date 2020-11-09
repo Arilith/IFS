@@ -1,4 +1,5 @@
 import React, {useState } from "react";
+import { Link } from 'react-router-dom';
 
 const Items = props => {
 
@@ -21,7 +22,7 @@ const Items = props => {
                 }} type="checkbox" check={ data.checked }></input>
             </th>
             <td>
-                <a className="ingredientItem" onClick={e => props.updateRecipes(data.name)} href="#">{data.name}</a>
+                <Link to={`/Recipes/${data.name}`} className="ingredientItem" >{data.name}</Link>
             </td>
             <td>
                 <button className="removebutton" onClick={e => props.removeItem(data.name)}>X</button>

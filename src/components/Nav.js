@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import Recipe from "../Recipe";
 import Items from "../components/Items/Items";
+import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
 

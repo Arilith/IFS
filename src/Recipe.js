@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './recipe.module.css';
+import { Link } from 'react-router-dom';
 
 const Recipe = ({title, calories, image, ingredients, healthlabels, key}) => {
 
@@ -22,7 +23,7 @@ const Recipe = ({title, calories, image, ingredients, healthlabels, key}) => {
                     <li>{healthlabel}</li>
                 ))}
             </ul>
-
+            <Link></Link>
         </div>
     );
 }
