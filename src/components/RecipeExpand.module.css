@@ -13,10 +13,6 @@
     color: white;
 }
 
-.link {
-    color: white;
-}
-
 .image {
     border-radius: 50%;
     width: 250px;
@@ -29,10 +25,9 @@
     color: white;
 }
 
-@media screen and (min-width: 900px) {
-    .recipe {width: 20%;}
-  }
-
-@media screen and (max-width: 900px) {
-    .recipe { width: 80%; }
+.useButton {
+    background-color: green;
+    border: none;
+    padding: 10px;
+    color: white;
 }

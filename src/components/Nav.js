@@ -2,21 +2,24 @@ import React, {useState, useEffect } from 'react';
 import Recipe from "../Recipe";
 import Items from "../components/Items/Items";
 import { Link, withRouter, useHistory } from 'react-router-dom';
+ 
 
 const Nav = (props) => {
     let history = useHistory();
     function toggleNav() {
         if(document.getElementById("mySidenav").style.width === "100%") {
           document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("mySidenav").style.paddingLeft = "0px";
         } else {
           document.getElementById("mySidenav").style.width = "100%";
+          document.getElementById("mySidenav").style.paddingLeft = "25px";
         }
     }
 
     return (
         <div className="Nav">
             <div className="topnav" id="myTopnav">
-                <a>IFS</a>
+                <Link to="/">IFS</Link>
                 <a className="icon" onClick={() => toggleNav()}>
                     <i className="fa fa-bars"></i>
                 </a>
@@ -43,7 +46,7 @@ const Nav = (props) => {
                 </tbody>
                 </table>
                 <button 
-                    className="sendButton" 
+                    className="searchButton" 
                     onClick={event => {
                     let selectedItems = "";
                     props.itemsInFridge.map(data => {

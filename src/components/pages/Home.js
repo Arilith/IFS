@@ -2,13 +2,14 @@ import React from 'react';
 import '../../App.css';
 import Recipe from '../../Recipe'
 import { Link } from 'react-router-dom';
+import Style from '../pages/home.module.css';
 
 const Home = (props) => {
 
     return(
-            <div className="home">
-                <h1>Welkom!</h1>
-                <p>Welkom in de app van de Interactive Food Scanner. U gaat de lijst van producten in uw huis kunnen vinden. </p>
+            <div className={Style.home}>
+                <h1>Welcome!</h1>
+                <p>Welcome to the Interactive Food Scanner Experience! This app will help you to stop wasting food while also making the most delicious meals! <br/><br/> Open your refrigerator by using the menu button in the top right.</p>
             </div>
     )
 }

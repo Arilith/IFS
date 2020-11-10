@@ -28,10 +28,6 @@ const App = () => {
         { id: 6, name: "Butter" },
         { id: 7, name: "Peanutbutter" },
         { id: 8, name: "Curry" },
-        { id: 9, name: "Peanuts" },
-        { id: 10, name: "Orange" },
-        { id: 11, name: "Chocolate Milk" },
-        { id: 12, name: "Fries" },
     ];
 
     setItemsInFridge(
@@ -98,7 +94,7 @@ const App = () => {
       <Nav getSearch = {getSearch} search = {search} updateSearch = {updateSearch} itemsInFridge = {itemsInFridge} setItemsInFridge = {setItemsInFridge} removeItem = {removeItem} updateRecipes = {updateRecipes} itemsInFridge = {itemsInFridge} updateRecipes = {updateRecipes} />
       <Switch>
         <Route path="/" exact render ={(props) => ( <Home {...props} />)} />
-        <Route path="/RecipePage/:id" component = { RecipePage } />
+        <Route path="/Recipe/:id" component = { RecipePage } />
         <Route path="/Recipes/:query" component = { Recipes } />
       </Switch>
       

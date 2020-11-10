@@ -6,7 +6,6 @@
 .search-form {
   min-height:10vh;
   display: flex;
-  justify-content: center;
   align-items:center;
 }
 
@@ -21,6 +20,7 @@
   border: none;
   padding: 10px 20px;
   color: white;
+  border: none;
 }
 
 .recipes {
@@ -36,6 +36,15 @@
   color: white;
   margin-left: 10px;
   margin-right: 5px;
+}
+
+.searchButton {
+  margin-left: 10px;
+  margin-top: 20px;
+  color: white;
+  background: rgb(0, 146, 204);
+  padding: 10px;
+  border: none;
 }
 
 .ingredientItem {
@@ -83,6 +92,7 @@ ul {
 }
 /* The side navigation menu */
 .sidenav {
+  
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
@@ -93,6 +103,7 @@ ul {
   backdrop-filter: blur(5px);
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
+  padding-bottom: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   color: #a7a7a7;
   font-size: 25px;

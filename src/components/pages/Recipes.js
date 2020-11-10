@@ -45,7 +45,7 @@ const Recipes = ({match}) => {
               image = {recipe.recipe.image}
               ingredients = {recipe.recipe.ingredients}
               healthlabels = {recipe.recipe.healthLabels}
-              url = {recipe.recipe.url}
+              url = {recipe.recipe.uri}
             />
           ))}
         </div>
