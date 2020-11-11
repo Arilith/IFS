@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react';
 import Recipe from "../Recipe";
 import Items from "../components/Items/Items";
 import { Link, withRouter, useHistory } from 'react-router-dom';
- 
+import API from './API'
 
 const Nav = (props) => {
     let history = useHistory();
@@ -59,6 +59,7 @@ const Nav = (props) => {
 
                     }}
                 >Search</button>
+                <API />
             </div>   
         </div>
     )
