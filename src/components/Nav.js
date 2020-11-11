@@ -1,10 +1,39 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import Recipe from "../Recipe";
 import Items from "../components/Items/Items";
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import API from './API'
 
+
+
 const Nav = (props) => {
+
+    const [barCodes, setBarCodes] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch("http://136.144.41.144/database.php?json&userid=1");
+            const json = await response.json();
+            setBarCodes(json);
+            console.log("Fetching data");
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        fetchJumbo();
+    }, [barCodes]);
+
+    let fetchedData = false;
+    setInterval(function() {
+           // fetchData();
+    }, 10000);
+
+    const fetchJumbo = async () => {
+        console.log("Fetch Jumbo");
+    }
+
     let history = useHistory();
     function toggleNav() {
         if(document.getElementById("mySidenav").style.width === "100%") {
@@ -59,7 +88,7 @@ const Nav = (props) => {
 
                     }}
                 >Search</button>
-                <API />
+                <API/>
             </div>   
         </div>
     )

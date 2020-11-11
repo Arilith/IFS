@@ -12,7 +12,7 @@ import Recipes from './components/pages/Recipes';
 import './App.css';
 
 const App = () => {
-
+  
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
 
@@ -28,6 +28,7 @@ const App = () => {
         { id: 6, name: "Butter" },
         { id: 7, name: "Peanutbutter" },
         { id: 8, name: "Curry" },
+        { id: 9, name: "Ketchup" },
     ];
 
     setItemsInFridge(
