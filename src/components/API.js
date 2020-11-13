@@ -16,6 +16,6 @@ const GlobalState = new EventEmitter();
 
 setInterval(() => {
     fetchData();
-}, 5000)
+}, 3500)
 
 export default GlobalState;

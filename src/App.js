@@ -90,7 +90,7 @@ const App = () => {
     // );
 
     const response = await fetch(`http://136.144.41.144/database.php?removeitem&item=${par}&userid=1`);
-    alertify.notify("Item was removed.");
+    alertify.success("Item was removed.");
   }
 
 
@@ -101,6 +101,8 @@ const App = () => {
         <Nav getSearch={getSearch} search={search} updateSearch={updateSearch} itemsInFridge={itemsInFridge} setItemsInFridge={setItemsInFridge} removeItem={removeItem} updateRecipes={updateRecipes} itemsInFridge={itemsInFridge} updateRecipes={updateRecipes} />
         <Switch>
           <Route path="/Home" component={Home} />
+          <Route path="/" exact component={Home} />
+          <Route path="/IFS/" exact component={Home} />
           <Route path="/Recipe/:id" component={RecipePage} />
           <Route path="/Recipes/:query" component={Recipes} />
         </Switch>

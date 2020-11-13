@@ -15,6 +15,7 @@ const Recipes = ({match}) => {
 
     useEffect(() => {
         getRecipes();
+        closeNav();
     }, [query]); 
 
     const getRecipes = async () => {
@@ -41,7 +42,7 @@ const Recipes = ({match}) => {
       document.getElementById("mySidenav").style.paddingLeft = "0px";
     }
 
-    closeNav();
+    
 
     return(
         <div className="recipes">
