@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -8,11 +8,15 @@ import Nav from './components/Nav';
 import Home from './components/pages/Home'
 import RecipePage from './components/pages/RecipePage';
 import Recipes from './components/pages/Recipes';
-
 import './App.css';
+import GlobalState from './components/API';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+
+let previousJSON = [];
 
 const App = () => {
-  
+
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
 
@@ -20,15 +24,7 @@ const App = () => {
 
   useEffect(() => {
     let itemsInFridge = [
-        { id: 1, name: "Milk" },
-        { id: 2, name: "Peas" },
-        { id: 3, name: "Beef" },
-        { id: 4, name: "Salt" },
-        { id: 5, name: "Pepper" },
-        { id: 6, name: "Butter" },
-        { id: 7, name: "Peanutbutter" },
-        { id: 8, name: "Curry" },
-        { id: 9, name: "Ketchup" },
+      { id: 1, name: "Loading items..." },
     ];
 
     setItemsInFridge(
@@ -36,23 +32,29 @@ const App = () => {
         return {
           select: false,
           id: data.id,
-          name: data.name
+          name: data.name,
+          amount: data.amount
         };
       })
     );
   }, []);
 
-  // useEffect(() => {
-  //   getRecipes();
-  // }, [query]); 
 
-  // const getRecipes = async () => {
-  //   const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
-  //   const data = await response.json();
-  //   setRecipes(data.hits);
-  // }
 
-  
+  useEffect(() => {
+    GlobalState.on("FetchedData", (json) => {
+      if (previousJSON.length != json.length) {
+        previousJSON = json;
+        setItemsInFridge([]);
+        setItemsInFridge(previousJSON);
+        console.log(previousJSON);
+      }
+    })
+  }, [])
+
+
+
+
 
   const updateSearch = e => {
     setSearch(e.target.value);
@@ -66,40 +68,44 @@ const App = () => {
 
   const updateRecipes = e => {
     setQuery(e);
-    
+
     setSearch("");
   }
 
-  function removeItem(par) {
-    setItemsInFridge(
-      itemsInFridge.map(data => {
-        if(data) {
-          if(par !== data.name) {
-            console.log(data.name);
-            return {
-              select: data.select,
-              id: data.id,
-              name: data.name
-            };
-          }
-        }
-      })
-    );
+  const removeItem = async (par) => {
+    // setItemsInFridge(
+    //   itemsInFridge.map(data => {
+    //     if (data) {
+    //       if (par !== data.name) {
+    //         console.log(data.name);
+    //         return {
+    //           select: data.select,
+    //           id: data.id,
+    //           name: data.name,
+    //           amount: data.amount
+    //         };
+    //       }
+    //     }
+    //   })
+    // );
+
+    const response = await fetch(`http://136.144.41.144/database.php?removeitem&item=${par}&userid=1`);
+    alertify.notify("Item was removed.");
   }
 
 
-  return(
+  return (
     <Router>
       <div className="App">
-      {/* <div className="animated fadeOut"></div> */}
-      <Nav getSearch = {getSearch} search = {search} updateSearch = {updateSearch} itemsInFridge = {itemsInFridge} setItemsInFridge = {setItemsInFridge} removeItem = {removeItem} updateRecipes = {updateRecipes} itemsInFridge = {itemsInFridge} updateRecipes = {updateRecipes} />
-      <Switch>
-        <Route path="/" exact render ={(props) => ( <Home {...props} />)} />
-        <Route path="/Recipe/:id" component = { RecipePage } />
-        <Route path="/Recipes/:query" component = { Recipes } />
-      </Switch>
-      
-    </div>
+        {/* <div className="animated fadeOut"></div> */}
+        <Nav getSearch={getSearch} search={search} updateSearch={updateSearch} itemsInFridge={itemsInFridge} setItemsInFridge={setItemsInFridge} removeItem={removeItem} updateRecipes={updateRecipes} itemsInFridge={itemsInFridge} updateRecipes={updateRecipes} />
+        <Switch>
+          <Route path="/Home" component={Home} />
+          <Route path="/Recipe/:id" component={RecipePage} />
+          <Route path="/Recipes/:query" component={Recipes} />
+        </Switch>
+
+      </div>
     </Router>
   );
 }

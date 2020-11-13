@@ -30,10 +30,12 @@ const Recipes = ({match}) => {
         history.listen((location, action) => {
             let splitURL = location.pathname.split("/");
             setQuery(splitURL[2]);
-            console.log(splitURL[2]);
+            
         });
     }, []);
         
+
+
     return(
         <div className="recipes">
 

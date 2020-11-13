@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+  background-image: linear-gradient(to right, #9ee2ee 0%, #249bd3 100%);
 }
 
 .search-form {
@@ -13,14 +13,19 @@
   width: 50%;
   border: none;
   padding: 10px;
+  background-color: rgba(255,255,255,0.3);
+  color: white;
+}
+
+::placeholder {
+  color:  rgb(221, 220, 220);
 }
 
 .search-button {
-  background: lightcoral;
+  margin-top: -5px;
+  color: #a7a7a7;
   border: none;
-  padding: 10px 20px;
-  color: white;
-  border: none;
+  justify-content: center;
 }
 
 .recipes {
@@ -34,17 +39,21 @@
   background: rgb(156, 21, 21);
   border: none;
   color: white;
+
   margin-left: 10px;
   margin-right: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .searchButton {
   margin-left: 10px;
-  margin-top: 20px;
   color: white;
-  background: rgb(0, 146, 204);
+  background: rgba(0, 146, 204, 0.7);
   padding: 10px;
   border: none;
+  position: fixed;
+  margin-top: 71vh;
 }
 
 .ingredientItem {
@@ -125,11 +134,18 @@ ul {
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+
+.itemslist {
+  overflow-y: auto;
+  position: absolute;
+  max-height: 70vh;
+  width: 90vw;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

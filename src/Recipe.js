@@ -16,8 +16,6 @@ const Recipe = ({title, calories, image, ingredients, healthlabels, key, url}) =
                     <li>{ingredient.text}</li>
                 ))}
             </ol>
-            <p>Amount of calories: <b>{Math.round(calories)}</b></p>
-            
             <Link className={style.link} to={`/Recipe/${recipeUUID}`}>Open Recipe</Link>
         </div>
     );

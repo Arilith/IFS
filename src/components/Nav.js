@@ -2,37 +2,12 @@ import React, {useState, useRef, useEffect } from 'react';
 import Recipe from "../Recipe";
 import Items from "../components/Items/Items";
 import { Link, withRouter, useHistory } from 'react-router-dom';
-import API from './API'
-
+import './API';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
 
 
 const Nav = (props) => {
-
-    const [barCodes, setBarCodes] = useState([]);
-
-    const fetchData = async () => {
-        try {
-            const response = await fetch("http://136.144.41.144/database.php?json&userid=1");
-            const json = await response.json();
-            setBarCodes(json);
-            console.log("Fetching data");
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
-    useEffect(() => {
-        fetchJumbo();
-    }, [barCodes]);
-
-    let fetchedData = false;
-    setInterval(function() {
-           // fetchData();
-    }, 10000);
-
-    const fetchJumbo = async () => {
-        console.log("Fetch Jumbo");
-    }
 
     let history = useHistory();
     function toggleNav() {
@@ -45,32 +20,37 @@ const Nav = (props) => {
         }
     }
 
+    function getSearch() {
+        history.push(`/Recipes/${props.search}`);
+    }
+
     return (
         <div className="Nav">
             <div className="topnav" id="myTopnav">
-                <Link to="/">IFS</Link>
+                <Link to="/Home">IFS</Link>
                 <a className="icon" onClick={() => toggleNav()}>
                     <i className="fa fa-bars"></i>
                 </a>
             </div>
             <div id="mySidenav" className="sidenav">
-                <div className="sideBarTitle">My Refrigerator</div>
+                <div className="sideBarTitle">My Kitchen</div>
                 <a className="closebtn" onClick={() => toggleNav()}>&times;</a>
-                <form id="searchForm" className="search-form" onSubmit={props.getSearch}>
-                    <input className="search-bar" type="text" value={props.search} onChange={props.updateSearch} />
-                    <button className="search-button" type="submit">Search</button>
+                <form id="searchForm" className="search-form" onSubmit={getSearch}>
+                    <input placeholder="Enter desired ingredients" className="search-bar" type="text" value={props.search} onChange={props.updateSearch} />
+                    {/* <button className="search-button" type="submit">Search</button> */}
+                    <Link toggleNav = {toggleNav} className="search-button" to={`/Recipes/${props.search}`}> Search </Link> 
                 </form>
                 <table className="table">
                 <thead>
                     <tr>
-                    <th scope="col">
-                        Select
+                    <th width="200px" >
+                        My ingredients
                     </th>
-                    <th>Product</th>
-                    <th>Delete</th>
+                    <th ></th>
+                    <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="itemslist">
                     <Items itemsInFridge={props.itemsInFridge} setItemsInFridge = {props.setItemsInFridge} removeItem = {props.removeItem} updateRecipes = {props.updateRecipes} />
                 </tbody>
                 </table>
@@ -87,8 +67,8 @@ const Nav = (props) => {
                     history.push(`/Recipes/${selectedItems}`);
 
                     }}
-                >Search</button>
-                <API/>
+                >Search with selection</button>
+                
             </div>   
         </div>
     )

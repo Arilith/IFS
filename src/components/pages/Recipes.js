@@ -35,6 +35,14 @@ const Recipes = ({match}) => {
         });
     }, []);
         
+  
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("mySidenav").style.paddingLeft = "0px";
+    }
+
+    closeNav();
+
     return(
         <div className="recipes">
           {recipes.map(recipe => (

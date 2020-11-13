@@ -1,31 +1,21 @@
-import react, { useState, useEffect } from 'react';
+import EventEmitter from 'events';
 
-const API = () => {
+let MappedData = [];
 
-    const [barCodes, setBarcodes] = useState([]);
+const fetchData = async (props) => {
+    const response = await fetch("http://136.144.41.144/database.php?json&userid=1");
+    const json = await response.json();
 
-    console.log("Init");
-
-    const fetchData = async () => {
-        try {
-            const response = await fetch("http://136.144.41.144/database.php?json&userid=1");
-            const json = await response.json();
-            setBarcodes(json);
-            console.log("Fetching data");
-        } catch(err) {
-            console.log(err);
-        }
+    if(json) {
+        GlobalState.emit("FetchedData", json);
     }
-
     
-
-    
-    
-
-    return (
-        null
-    )
-
 }
 
-export default API;
+const GlobalState = new EventEmitter();
+
+setInterval(() => {
+    fetchData();
+}, 5000)
+
+export default GlobalState;
